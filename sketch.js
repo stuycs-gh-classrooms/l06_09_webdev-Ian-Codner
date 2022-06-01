@@ -1,53 +1,10 @@
-class Land {
- 
-
-  constructor( lx, ly, size, lstate) {
-    this.x = lx;
-    this.y = ly;
-    this.size = size;
-    this.state = lstate;
-  }
-
-  function display() {
-    let c = color(255);
-    if (state == DIRT) {
-      c = color(#311A0A);
-    } else if (state == FIRE) {
-      c = color(#FF0000);
-    } else if (state == BURNT) {
-      c = color(#B92727);
-    } else if (state == TREE) {
-      c = color(#12DE21);
-    }
-    stroke(0);
-    //stroke(c);
-    fill(c);
-    square(x, y, size);
-    stroke(255);
-    fill(255);
-  }
-
-  function updateState(neighborState) {
-    if (neighborState == FIRE && this.state == TREE) {
-      this.nextState = FIRE;
-    } else if (this.state == FIRE) {
-      this.nextState = BURNT;
-    } else {
-     this.nextState = this.state; 
-    }
-  }
-  
-  void changeState() {
-   this.state = this.nextState; 
-  }
-  
-}
-
-
 let DIRT = 0;
 let FIRE = 1;
 let BURNT = 2;
 let TREE = 3;
+
+
+
 
 //land plots[];
 
@@ -66,9 +23,9 @@ function draw() {
 
 function setupLand(numPlots, fertility) {
   let plotSize = width/numPlots;
-  let plots = new Land[numPlots];
+  let plots = new Land(numPlots);
   for (int i = 0; i < plots.length; i++) {
-    int type;
+    let type;
     if (int( random(100)) < fertility) {
       type = TREE;
     } else {
@@ -98,3 +55,46 @@ function liveFire() {
 
 //---------------------------------------------------------------------------------------------------------------------
 
+class Land { 
+
+  constructor( lx, ly, size, lstate) {
+    this.x = lx;
+    this.y = ly;
+    this.size = size;
+    this.state = lstate;
+  }
+
+  display() {
+    let c = color(255);
+    if (this.state == DIRT) {
+      c = color('#311A0A');
+    } else if (this.state == FIRE) {
+      c = color('#FF0000');
+    } else if (this.state == BURNT) {
+      c = color('#B92727');
+    } else if (this.state == TREE) {
+      c = color('#12DE21');
+    }
+    stroke(0);
+    //stroke(c);
+    fill(c);
+    square(x, y, size);
+    stroke(255);
+    fill(255);
+  }
+
+  updateState(neighborState) {
+    if (neighborState == FIRE && this.state == TREE) {
+      this.nextState = FIRE;
+    } else if (this.state == FIRE) {
+      this.nextState = BURNT;
+    } else {
+     this.nextState = this.state; 
+    }
+  }
+  
+  changeState() {
+   this.state = this.nextState; 
+  }
+  
+}
