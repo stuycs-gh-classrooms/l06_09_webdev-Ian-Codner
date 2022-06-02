@@ -2,7 +2,7 @@ function setup() {
   createCanvas(800, 800);
   background(255);
 
-  int x = 0;
+  let x = 0;
   while (x < 800) {
     randomRectangle();
     x++;
